@@ -4,7 +4,6 @@ import logger from 'morgan'
 
 import indexRouter from './routes/index.js'
 import usersRouter from './routes/users.js'
-import categoriasRouter from './routes/categorias.js'
 
 const app = express()
 
@@ -13,10 +12,24 @@ app.use(json())
 app.use(urlencoded({ extended: false }))
 app.use(cookieParser())
 
-
-/******************** ROTAS ********************/
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
+
+/******************** ROTAS ********************/
+
+import categoriasRouter from './routes/categorias.js'
 app.use('/categorias', categoriasRouter)
+
+import clientesRouter from './routes/clientes.js'
+app.use('/clientes', clientesRouter)
+
+import fornecedoresRouter from './routes/fornecedores.js'
+app.use('/fornecedores', fornecedoresRouter)
+
+import pedidosRouter from './routes/pedidos.js'
+app.use('/pedidos', pedidosRouter)
+
+import produtosRouter from './routes/produtos.js'
+app.use('/produtos', produtosRouter)
 
 export default app
