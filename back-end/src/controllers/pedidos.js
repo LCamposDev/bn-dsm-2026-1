@@ -111,8 +111,13 @@ controller.update = async function(req, res) {
 
 controller.delete = async function(req, res) {
   try {
-    // Busca o documento pelo id passado como parâmetro
-    // e efetua a exclusão, caso o documento seja encontrado
+    // Exclui primeiro os itens do pedido (filhos),
+    // para não violar a relação 'ItemPedidoToPedido'
+    await prisma.itemPedido.deleteMany({
+      where: { pedido_id: req.params.id }
+    })
+
+    // Agora exclui o pedido (pai)
     await prisma.pedido.delete({
       where: { id: req.params.id }
     })
